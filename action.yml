@@ -12,6 +12,9 @@ inputs:
   token:
     description: 'GitHub token used to open pull requests'
     required: true
+  TEST_VAR:
+    description: 'test'
+    required: true
 
 runs:
   using: 'docker'
