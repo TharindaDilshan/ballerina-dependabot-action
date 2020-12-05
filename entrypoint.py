@@ -1,6 +1,6 @@
 import os
 
-print(os.getenv('TEST_VAR'))
+print(os.environ)
 print("It works!")
 
 exit(0)
