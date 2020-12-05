@@ -1,0 +1,18 @@
+name: Ballerina Dependabot
+author: Tharinda Dilshan
+description: Version resolution for Ballerina
+
+inputs: 
+  git-email:
+    description: 'The email pull request should be associated with'
+    required: true
+  git-name:
+    description: 'The name pull request should be associated with'
+    required: true
+  token:
+    description: 'GitHub token used to open pull requests'
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

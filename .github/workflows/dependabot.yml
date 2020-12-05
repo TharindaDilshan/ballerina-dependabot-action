@@ -1,0 +1,19 @@
+name: Ballerina Dependabot
+on: 
+  workflow_dispatch:
+jobs:
+  resolve_dependencies:
+    runs-on: ubuntu-latest
+    name: Dependabot
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Dependabot Action
+        uses: ./ # Uses an action in the root directory
+        id: bot
+        with:
+          git-email: {{ secrets.BALLERINA_BOT_EMAIL }}
+          git-name: {{ secrets.BALLERINA_BOT_USERNAME}}
+          token: {{ secrets.BALLERINA_BOT_TOKEN }}
