@@ -9,4 +9,4 @@ RUN chmod +x entrypoint.py
 RUN echo "DOCKER FILE"
 
 # Run script with the ENV var
-ENTRYPOINT export /entrypoint.py
+ENTRYPOINT /entrypoint.py
