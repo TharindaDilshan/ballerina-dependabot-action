@@ -3,10 +3,10 @@ author: Tharinda Dilshan
 description: Version resolution for Ballerina
 
 inputs: 
-  git-email:
+  git_email:
     description: 'The email pull request should be associated with'
     required: true
-  git-name:
+  git_username:
     description: 'The name pull request should be associated with'
     required: true
   token:
