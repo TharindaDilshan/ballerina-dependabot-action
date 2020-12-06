@@ -9,4 +9,4 @@ RUN chmod +x entrypoint.py
 RUN echo "DOCKER FILE"
 
 # Run script with the ENV var
-ENTRYPOINT /entrypoint.py
+ENTRYPOINT /ballerina_dependabot/entrypoint.py
