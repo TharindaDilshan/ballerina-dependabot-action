@@ -17,4 +17,3 @@ jobs:
           git_email: ${{ secrets.BALLERINA_BOT_EMAIL }}
           git_username: ${{ secrets.BALLERINA_BOT_USERNAME}}
           token: ${{ secrets.BALLERINA_BOT_TOKEN }}
-          TEST_VAR: Tharinda
