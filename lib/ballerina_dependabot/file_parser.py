@@ -15,9 +15,7 @@ def getModulesToBeUpdated(tomlFile):
         currentVersion = parsedToml['dependencies'][module]
         updateFlag, latestVersion = isCurrentVersionLatest(module, currentVersion)
         if updateFlag:
-            modulesToBeUpdated.append({
-                'name' : module,
-                'version' : latestVersion})
+            modulesToBeUpdated.append({module: latestVersion})
 
     return modulesToBeUpdated
 
