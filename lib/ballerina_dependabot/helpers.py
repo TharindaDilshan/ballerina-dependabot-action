@@ -34,11 +34,3 @@ def configureGithubRepository():
         sys.exit()
 
     return repo
-
-g = Github('4a2aa07ba13b031a51758de33d6019e5148fa1fd')
-repo = g.get_repo('BuddhiWathsala/ballerina-marketing-bot')
-file = repo.get_contents("Ballerina.toml", ref="master")
-data = file.decoded_content.decode("utf-8")
-p = toml.loads(data)['dependencies']
-for m in p:
-    print(m, p[m])
