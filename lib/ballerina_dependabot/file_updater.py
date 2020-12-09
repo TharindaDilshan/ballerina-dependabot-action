@@ -1,5 +1,5 @@
 import file_fetcher
-import helpers
+import commons
 import toml
 import sys
 from github import Github, InputGitAuthor, GithubException
@@ -19,7 +19,7 @@ def updatePropertiesFile(tomlFile, module, latestVersion):
 
     currentVersion = toml.loads(tomlFile)['dependencies'][module]
     # update only if the current version < latest version
-    isCurrentVersionLatest = helpers.compareVersion(latestVersion, currentVersion)
+    isCurrentVersionLatest = commons.compareVersion(latestVersion, currentVersion)
 
     for line in tomlFile.splitlines():
         if module in line and isCurrentVersionLatest == 1:

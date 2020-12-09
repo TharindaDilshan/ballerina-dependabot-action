@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 import os
-import helpers
+import commons
 import file_fetcher
 import file_parser
 import file_updater
 
-repo = helpers.configureGithubRepository()
+repo = commons.configureGithubRepository()
 tomlFile = file_fetcher.fetchTomlFileFromMainBranch(repo)
 modulesToBeUpdated = file_parser.getModulesToBeUpdated(tomlFile)
 
