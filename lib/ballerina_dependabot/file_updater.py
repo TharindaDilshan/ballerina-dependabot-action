@@ -57,20 +57,22 @@ def commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
 
 # Create a PR from the branch created
 def createPullRequest(repo, currentVersion, module, latestVersion):
-    pulls = repo.get_pulls(state='open', head='dependabot-' + module, base='master')
+    pulls = repo.get_pulls(state='open', head='dependabot/' + module, base='master')
     PRExists = 0
 
     # Check if a PR already exists for the module
     for pull in pulls:
         if module in pull.title:
             PRExists = pull.number
+            minVersion = pull.title.split()[3]
+            break
 
     # If PR exists update the title else create a new PR
     if PRExists:
         existingPR = repo.get_pull(PRExists)
-        existingPR.edit(title="Bump " + module + " from " + currentVersion + " to " + latestVersion)
+        existingPR.edit(title="Bump " + module + " from " + minVersion + " to " + latestVersion)
     else:
         repo.create_pull(title="Bump " + module + " from " + currentVersion + " to " + latestVersion, 
                         body='$subject', 
-                        head="dependabot-" + module, 
+                        head="dependabot/" + module, 
                         base="master")
