@@ -1,36 +1,36 @@
 import helpers
+import toml
+import sys
 
 def getModulesToBeUpdated(tomlFile):
-    lineIdentifier = False
+    try:
+        parsedToml = toml.loads(tomlFile)
+    except Exception as e:
+        print('Failed to parse toml file - ' + str(e))
+        sys.exit()
+
     modulesToBeUpdated = []
 
-    for line in tomlFile.splitlines():
-        if lineIdentifier and '=' not in line:
-            lineIdentifier = False
-            break
-
-        if lineIdentifier and '=' in line:
-            module = line.replace(" ", "").split('=')       
-            moduleName = module[0][1:-1]                #org/module
-            currentVersion = module[1][1:-1]
-            updateFlag, latestVersion = isCurrentVersionLatest(moduleName, currentVersion)
-            if updateFlag:
-                modulesToBeUpdated.append({moduleName + ':' + latestVersion})
-
-        if '[dependencies]' in line:
-            lineIdentifier = True
+    for module in parsedToml['dependencies']:
+        currentVersion = parsedToml['dependencies'][module]
+        updateFlag, latestVersion = isCurrentVersionLatest(module, currentVersion)
+        if updateFlag:
+            modulesToBeUpdated.append({
+                'name' : module,
+                'version' : latestVersion})
 
     return modulesToBeUpdated
 
-def isCurrentVersionLatest(moduleName, currentVersion):
+def isCurrentVersionLatest(module, currentVersion):
     updateFlag = False
 
     try:
-        latestVersion = helpers.urlOpenWithRetry("https://api.central.ballerina.io/1.0/modules/info/" + moduleName)
-        if helpers.compareVersion(latestVersion, currentVersion) == 1:
-            updateFlag = True
-    except
+        latestVersion = helpers.urlOpenWithRetry("https://api.central.ballerina.io/1.0/modules/info/" + module)
+    except:
         latestVersion = currentVersion
+
+    if helpers.compareVersion(latestVersion, currentVersion) == 1:
+            updateFlag = True
 
     return updateFlag, latestVersion
 

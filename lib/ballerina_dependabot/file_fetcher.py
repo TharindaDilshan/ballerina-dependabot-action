@@ -1,7 +1,7 @@
 import sys
 
 # Fetch TOML file from a given repository
-def fetchTOMLFile(repo):
+def fetchTOMLFileFromMainBranch(repo):
     try:
         file = repo.get_contents("Ballerina.toml", ref="master")
         data = file.decoded_content.decode("utf-8")

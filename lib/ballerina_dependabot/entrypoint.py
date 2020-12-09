@@ -3,14 +3,13 @@ import os
 import helpers
 import file_fetcher
 import file_parser
-
-# print(os.environ)
-print("It works!")
-# print(os.environ['GITHUB_REPOSITORY'])
-print(helpers.HTTP_REQUEST_DELAY_IN_SECONDS)
+import file_updater
 
 repo = helpers.configureGithubRepository()
-tomlFile = file_fetcher.fetchTOMLFile(repo)
+tomlFile = file_fetcher.fetchTomlFileFromMainBranch(repo)
 modulesToBeUpdated = file_parser.getModulesToBeUpdated(tomlFile)
+
+if len(modulesToBeUpdated) > 0:
+    file_updater.updateFileAndRaisePR(repo, modulesToBeUpdated)
 
 exit(0)
