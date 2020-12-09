@@ -1,6 +1,8 @@
 import file_fetcher
 import helpers
 import toml
+import sys
+from github import Github, InputGitAuthor, GithubException
 
 def updateFileAndRaisePR(repo, modulesToBeUpdated):
     for module in modulesToBeUpdated:
@@ -8,8 +10,8 @@ def updateFileAndRaisePR(repo, modulesToBeUpdated):
         tomlFile = file_fetcher.fetchTomlFileFromMainOrExistingBranch(repo, module)
         modifiedTomlFile, currentVersion, commitFlag = updatePropertiesFile(tomlFile, module, latestVersion)
         if commitFlag:
-            commitChanges(modifiedTomlFile, currentVersion, repo, module['name'], module['version'])
-            createPullRequest(repo, currentVersion, module['name'], module['version'])
+            commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
+            createPullRequest(repo, currentVersion, module, latestVersion)
 
 def updatePropertiesFile(tomlFile, module, latestVersion):
     modifiedTomlFile = ''
@@ -31,22 +33,26 @@ def updatePropertiesFile(tomlFile, module, latestVersion):
     return modifiedTomlFile, currentVersion, commitFlag
 
 # Checkout branch and commit changes
-def commitChanges(data, currentVersion, repo, module, latestVersion):
-    author = InputGitAuthor(packageUser, packageEmail)
+def commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion):
+    try:
+        author = InputGitAuthor(os.environ['INPUT_GIT_USERNAME'], os.environ['INPUT_GIT_EMAIL'])
+    except Exception as e:
+        print('Failed to initialize github author - ' + str(e))
+        sys.exit()
 
     # If branch already exists checkout and commit else create new branch from master branch and commit
     try:
-        source = repo.get_branch(branch="dependabot-" + module)
+        source = repo.get_branch(branch="dependabot/" + module)
     except GithubException:
         source = repo.get_branch("master")
-        repo.create_git_ref(ref=f"refs/heads/dependabot-" + module, sha=source.commit.sha)
+        repo.create_git_ref(ref=f"refs/heads/dependabot/" + module, sha=source.commit.sha)
 
-    contents = repo.get_contents("gradle.properties", ref="dependabot-" + module)
+    contents = repo.get_contents("Ballerina.toml", ref="dependabot/" + module)
     repo.update_file(contents.path, 
                     "[Automated] Bump " + module + " from " + currentVersion + " to " + latestVersion, 
-                    data, 
+                    modifiedTomlFile, 
                     contents.sha, 
-                    branch="dependabot-" + module, 
+                    branch="dependabot/" + module, 
                     author=author)
 
 # Create a PR from the branch created
