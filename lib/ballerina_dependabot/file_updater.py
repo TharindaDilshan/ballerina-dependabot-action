@@ -35,6 +35,8 @@ def updateTomlFile(tomlFile, module, latestVersion):
         else:
             updatedLine = line + '\n'
             modifiedTomlFile += updatedLine
+
+    modifiedTomlFile = modifiedTomlFile[0:-1]
     
     return modifiedTomlFile, currentVersion, commitFlag
 
