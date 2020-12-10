@@ -13,6 +13,7 @@ RUN pip install requests
 RUN pip install retry
 RUN pip install semver
 RUN pip install PyGithub
+RUN pip install toml
 RUN chmod +x entrypoint.py
 
 RUN echo "DOCKER FILE"
