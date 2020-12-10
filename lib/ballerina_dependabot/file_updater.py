@@ -23,7 +23,7 @@ def updateTomlFile(tomlFile, module, latestVersion):
 
     for line in tomlFile.splitlines():
         if module in line and isCurrentVersionLatest == 1:
-            updatedLine = line.split('=')[0] + '= "' + latestVersion '"\n'
+            updatedLine = line.split('=')[0] + '= "' + latestVersion + '"\n'
             modifiedTomlFile += updatedLine
             commitFlag = True
         else:
