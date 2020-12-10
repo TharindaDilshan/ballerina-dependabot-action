@@ -6,12 +6,14 @@ from github import Github, InputGitAuthor, GithubException
 
 def updateFileAndRaisePR(repo, modulesToBeUpdated):
     for module in modulesToBeUpdated:
-        latestVersion = modulesToBeUpdated[module]
-        tomlFile = file_fetcher.fetchTomlFileFromMainOrExistingBranch(repo, module)
-        modifiedTomlFile, currentVersion, commitFlag = updateTomlFile(tomlFile, module, latestVersion)
+        for key in module:
+            moduleName = key
+            latestVersion = module[key]
+        tomlFile = file_fetcher.fetchTomlFileFromMainOrExistingBranch(repo, moduleName)
+        modifiedTomlFile, currentVersion, commitFlag = updateTomlFile(tomlFile, moduleName, latestVersion)
         if commitFlag:
-            commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
-            createPullRequest(repo, currentVersion, module, latestVersion)
+            commitChanges(modifiedTomlFile, currentVersion, repo, moduleName, latestVersion)
+            createPullRequest(repo, currentVersion, moduleName, latestVersion)
 
 def updateTomlFile(tomlFile, module, latestVersion):
     modifiedTomlFile = ''
