@@ -40,11 +40,11 @@ def commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
         print('Failed to initialize github author - ' + str(e))
         sys.exit()
 
-    # If branch already exists checkout and commit else create new branch from master branch and commit
+    # If branch already exists checkout and commit else create new branch from main branch and commit
     try:
         source = repo.get_branch(branch="dependabot/" + module)
     except GithubException:
-        source = repo.get_branch("master")
+        source = repo.get_branch("main")
         repo.create_git_ref(ref=f"refs/heads/dependabot/" + module, sha=source.commit.sha)
 
     contents = repo.get_contents("Ballerina.toml", ref="dependabot/" + module)
@@ -57,7 +57,7 @@ def commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
 
 # Create a PR from the branch created
 def createPullRequest(repo, currentVersion, module, latestVersion):
-    pulls = repo.get_pulls(state='open', head='dependabot/' + module, base='master')
+    pulls = repo.get_pulls(state='open', head='dependabot/' + module, base='main')
     PRExists = 0
 
     # Check if a PR already exists for the module
@@ -75,4 +75,4 @@ def createPullRequest(repo, currentVersion, module, latestVersion):
         repo.create_pull(title="Bump " + module + " from " + currentVersion + " to " + latestVersion, 
                         body='$subject', 
                         head="dependabot/" + module, 
-                        base="master")
+                        base="main")
