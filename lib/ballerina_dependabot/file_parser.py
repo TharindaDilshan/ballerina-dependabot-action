@@ -1,4 +1,4 @@
-import helpers
+import commons
 import toml
 import sys
 
@@ -23,11 +23,11 @@ def isCurrentVersionLatest(module, currentVersion):
     updateFlag = False
 
     try:
-        latestVersion = helpers.urlOpenWithRetry("https://api.central.ballerina.io/1.0/modules/info/" + module)
+        latestVersion = commons.urlOpenWithRetry("https://api.central.ballerina.io/1.0/modules/info/" + module)
     except:
         latestVersion = currentVersion
 
-    if helpers.compareVersion(latestVersion, currentVersion) == 1:
+    if commons.compareVersion(latestVersion, currentVersion) == 1:
             updateFlag = True
 
     return updateFlag, latestVersion
