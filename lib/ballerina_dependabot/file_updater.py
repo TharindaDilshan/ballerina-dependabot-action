@@ -51,6 +51,7 @@ def commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
     # If branch already exists checkout and commit else create new branch from main branch and commit
     try:
         source = repo.get_branch(branch="dependabot/" + module)
+        print("commit changes - branch already exists")
     except GithubException:
         source = repo.get_branch("main")
         repo.create_git_ref(ref=f"refs/heads/dependabot/" + module, sha=source.commit.sha)

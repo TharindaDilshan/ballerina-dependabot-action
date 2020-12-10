@@ -7,6 +7,7 @@ import file_parser
 import file_updater
 
 repo = commons.configureGithubRepository()
+print("Configured GitHub repository")
 tomlFile = file_fetcher.fetchTomlFileFromMainBranch(repo)
 modulesToBeUpdated = file_parser.getModulesToBeUpdated(tomlFile)
 
