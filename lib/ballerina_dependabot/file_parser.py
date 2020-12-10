@@ -1,6 +1,7 @@
 import commons
 import toml
 import sys
+import update_checker
 
 def getModulesToBeUpdated(tomlFile):
     try:
@@ -23,7 +24,7 @@ def isCurrentVersionLatest(module, currentVersion):
     updateFlag = False
 
     try:
-        latestVersion = commons.urlOpenWithRetry("https://api.central.ballerina.io/1.0/modules/info/" + module)
+        latestVersion = update_checker.fetchLatestVersion(module)
     except:
         latestVersion = currentVersion
 

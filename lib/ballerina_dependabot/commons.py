@@ -22,7 +22,12 @@ def urlOpenWithRetry(url):
 # Return 0 if latest version = current version
 # Return -1 if latest version < current version
 def compareVersion(latestVersion, currentVersion):
-    return semver.compare(latestVersion, currentVersion)
+    try:
+        comparedOutput = semver.compare(latestVersion, currentVersion)
+    except:
+        comparedOutput = 0
+
+    return comparedOutput
 
 # Fetch the repository
 def configureGithubRepository():

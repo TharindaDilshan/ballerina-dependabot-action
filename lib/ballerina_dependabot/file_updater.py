@@ -8,12 +8,12 @@ def updateFileAndRaisePR(repo, modulesToBeUpdated):
     for module in modulesToBeUpdated:
         latestVersion = modulesToBeUpdated[module]
         tomlFile = file_fetcher.fetchTomlFileFromMainOrExistingBranch(repo, module)
-        modifiedTomlFile, currentVersion, commitFlag = updatePropertiesFile(tomlFile, module, latestVersion)
+        modifiedTomlFile, currentVersion, commitFlag = updateTomlFile(tomlFile, module, latestVersion)
         if commitFlag:
             commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
             createPullRequest(repo, currentVersion, module, latestVersion)
 
-def updatePropertiesFile(tomlFile, module, latestVersion):
+def updateTomlFile(tomlFile, module, latestVersion):
     modifiedTomlFile = ''
     commitFlag = False
 
@@ -23,12 +23,12 @@ def updatePropertiesFile(tomlFile, module, latestVersion):
 
     for line in tomlFile.splitlines():
         if module in line and isCurrentVersionLatest == 1:
-            update = line.split('=')[0] + '= "' + latestVersion '"\n'
-            modifiedTomlFile += update
+            updatedLine = line.split('=')[0] + '= "' + latestVersion '"\n'
+            modifiedTomlFile += updatedLine
             commitFlag = True
         else:
-            update = line + '\n'
-            modifiedTomlFile += update
+            updatedLine = line + '\n'
+            modifiedTomlFile += updatedLine
     
     return modifiedTomlFile, currentVersion, commitFlag
 
