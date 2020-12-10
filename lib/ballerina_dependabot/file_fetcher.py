@@ -19,6 +19,7 @@ def fetchTomlFileFromMainBranch(repo):
 def fetchTomlFileFromMainOrExistingBranch(repo, module):
     try:
         branch = repo.get_branch(branch="dependabot/" + module)
+        print(branch)
         file = repo.get_contents("Ballerina.toml", ref="dependabot")
         print('Fetched from existing branch')
     except GithubException:
