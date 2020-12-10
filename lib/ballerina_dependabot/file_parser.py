@@ -1,7 +1,10 @@
-import commons
-import toml
 import sys
+
+import toml
+
+import commons
 import update_checker
+
 
 def getModulesToBeUpdated(tomlFile):
     try:

@@ -1,10 +1,11 @@
 import os
 import sys
-import semver
 import urllib.request
-from retry import retry
-from github import Github, InputGitAuthor, GithubException
+
+import semver
 import toml
+from github import Github, GithubException, InputGitAuthor
+from retry import retry
 
 HTTP_REQUEST_RETRIES = 3
 HTTP_REQUEST_DELAY_IN_SECONDS = 2

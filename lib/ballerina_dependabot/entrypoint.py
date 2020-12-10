@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import os
-import commons 
-import file_fetcher 
-import file_parser 
-import file_updater 
+
+import commons
+import file_fetcher
+import file_parser
+import file_updater
 
 repo = commons.configureGithubRepository()
 tomlFile = file_fetcher.fetchTomlFileFromMainBranch(repo)

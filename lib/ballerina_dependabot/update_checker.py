@@ -1,5 +1,7 @@
-import commons
 import json
+
+import commons
+
 
 # Get the latest version of a Ballerina Stdlib module from the Ballerina Central
 def fetchLatestVersion(module):

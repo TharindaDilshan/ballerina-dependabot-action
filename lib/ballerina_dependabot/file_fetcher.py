@@ -1,5 +1,7 @@
 import sys
+
 from github import GithubException
+
 
 # Fetch toml file from a given repository
 def fetchTomlFileFromMainBranch(repo):

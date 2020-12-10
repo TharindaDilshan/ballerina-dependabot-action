@@ -1,8 +1,12 @@
-import file_fetcher
-import commons
-import toml
+import os
 import sys
-from github import Github, InputGitAuthor, GithubException
+
+import toml
+from github import Github, GithubException, InputGitAuthor
+
+import commons
+import file_fetcher
+
 
 def updateFileAndRaisePR(repo, modulesToBeUpdated):
     for module in modulesToBeUpdated:
