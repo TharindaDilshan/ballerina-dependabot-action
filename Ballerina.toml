@@ -4,4 +4,4 @@ version= "0.1.0"
 
 [dependencies]
 "wso2/gsheets4" = "0.10.0"
-"wso2/gmail" = "0.10.0"
+"wso2/gmail" = "0.11.0"
