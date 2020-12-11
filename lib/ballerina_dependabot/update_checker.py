@@ -3,7 +3,7 @@ import json
 import commons
 
 
-# Get the latest version of a Ballerina Stdlib module from the Ballerina Central
+# Get the latest version of a Ballerina module from the Ballerina Central
 def fetchLatestVersion(module):
     try:
         data = commons.urlOpenWithRetry("https://api.central.ballerina.io/1.0/modules/info/" + module)

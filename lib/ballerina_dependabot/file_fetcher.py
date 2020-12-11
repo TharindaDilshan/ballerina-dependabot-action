@@ -9,7 +9,7 @@ def fetchTomlFileFromMainBranch(repo):
         file = repo.get_contents("Ballerina.toml", ref="main")
         tomlFile = file.decoded_content.decode("utf-8")
     except Exception as e:
-        print("Failed to fetch Ballerina.toml - " + str(e))
+        print("Failed to fetch Ballerina.toml from the root directory - " + str(e))
         sys.exit()
     
 
@@ -20,10 +20,8 @@ def fetchTomlFileFromMainOrExistingBranch(repo, module):
     try:
         branch = repo.get_branch(branch="dependabot/" + module)
         file = repo.get_contents("Ballerina.toml", ref="dependabot/" + module)
-        print('Fetched from existing branch')
     except GithubException:
         file = repo.get_contents("Ballerina.toml", ref="main")
-        print('Error fetching from existing branch')
 
     tomlFile = file.decoded_content.decode("utf-8")
 

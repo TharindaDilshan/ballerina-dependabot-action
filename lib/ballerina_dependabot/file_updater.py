@@ -7,7 +7,8 @@ from github import Github, GithubException, InputGitAuthor
 import commons
 import file_fetcher
 
-
+# Fetch and update the Ballerina.toml file
+# If changes are made commit and raise PR
 def updateFileAndRaisePR(repo, modulesToBeUpdated):
     for module in modulesToBeUpdated:
         for key in module:
@@ -16,13 +17,18 @@ def updateFileAndRaisePR(repo, modulesToBeUpdated):
         tomlFile = file_fetcher.fetchTomlFileFromMainOrExistingBranch(repo, moduleName)
         modifiedTomlFile, currentVersion, commitFlag = updateTomlFile(tomlFile, moduleName, latestVersion)
         if commitFlag:
-            commitChanges(modifiedTomlFile, currentVersion, repo, moduleName, latestVersion)
-            createPullRequest(repo, currentVersion, moduleName, latestVersion)
+            try:
+                commitChanges(modifiedTomlFile, currentVersion, repo, moduleName, latestVersion)
+                createPullRequest(repo, currentVersion, moduleName, latestVersion)
+                print('Changes commited successfully')
+            except Exception as e:
+                print('Failed to commit changes and raise PR in branch dependabot/' + moduleName + ' - ' + str(e))
 
+# Update Ballerina.toml file witht he latest versions
 def updateTomlFile(tomlFile, module, latestVersion):
     modifiedTomlFile = ''
     commitFlag = False
-
+    
     currentVersion = toml.loads(tomlFile)['dependencies'][module]
     # update only if the current version < latest version
     isCurrentVersionLatest = commons.compareVersion(latestVersion, currentVersion)
@@ -51,7 +57,6 @@ def commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
     # If branch already exists checkout and commit else create new branch from main branch and commit
     try:
         source = repo.get_branch(branch="dependabot/" + module)
-        print("commit changes - branch already exists")
     except GithubException:
         source = repo.get_branch("main")
         repo.create_git_ref(ref=f"refs/heads/dependabot/" + module, sha=source.commit.sha)
