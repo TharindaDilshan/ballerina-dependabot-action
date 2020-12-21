@@ -71,7 +71,7 @@ def commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
 
 # Create a PR from the branch created
 def createPullRequest(repo, currentVersion, module, latestVersion):
-    pulls = repo.get_pulls(state='open', head='dependabot/' + module, base='main')
+    pulls = repo.get_pulls(state='open', head='dependabot/' + module)
     PRExists = 0
 
     # Check if a PR already exists for the module
