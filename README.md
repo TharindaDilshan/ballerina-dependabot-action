@@ -16,6 +16,12 @@ See the [repo](https://github.com/TharindaDilshan/ballerina-dependabot-extended)
 
 ## Example
 
-
+```
+ - uses: TharindaDilshan/ballerina-dependabot-extended@main
+   with:
+      git_email: ${{ secrets.BALLERINA_BOT_EMAIL }}
+      git_username: ${{ secrets.BALLERINA_BOT_USERNAME}}
+      token: ${{ secrets.BALLERINA_BOT_TOKEN }}
+```
 
 ## Full Example
