@@ -64,7 +64,9 @@ def commitChanges(modifiedTomlFile, currentVersion, repo, module, latestVersion)
             source = repo.get_branch("master")
         repo.create_git_ref(ref=f"refs/heads/dependabot/" + module, sha=source.commit.sha)
 
-    contents = repo.get_contents("Ballerina.toml", ref="dependabot/" + module)
+    path = commons.getTomlFilePath()
+
+    contents = repo.get_contents(path, ref="dependabot/" + module)
     repo.update_file(contents.path, 
                     "[Automated] Bump " + module + " from " + currentVersion + " to " + latestVersion, 
                     modifiedTomlFile, 

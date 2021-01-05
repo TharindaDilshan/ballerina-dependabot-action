@@ -40,3 +40,13 @@ def configureGithubRepository():
         sys.exit()
 
     return repo
+
+# Get file path
+def getTomlFilePath():
+    if 'FILE_PATH' in os.environ:
+        if 'Ballerina.toml' in os.environ['FILE_PATH'] or os.environ['FILE_PATH'][-1] != '/':
+            print("Invalid path format - " + os.environ['FILE_PATH'])
+            sys.exit()
+        return os.environ['FILE_PATH'] + 'Ballerina.toml'
+    else:
+        return 'Ballerina.toml'
