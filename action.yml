@@ -12,6 +12,9 @@ inputs:
   token:
     description: 'GitHub token used to open pull requests'
     required: true
+  file_path:
+    description: 'Path to the Ballerina.toml file'
+    required: false
 
 runs:
   using: 'docker'
