@@ -7,7 +7,7 @@ import commons
 # Fetch toml file from a given repository
 def fetchTomlFileFromMainBranch(repo):
     path = commons.getTomlFilePath()
-
+    print(path)
     try:
         try:
             file = repo.get_contents(path, ref="main")
@@ -24,7 +24,7 @@ def fetchTomlFileFromMainBranch(repo):
 # Fetch toml file from main branch or existing dependabot branch
 def fetchTomlFileFromMainOrExistingBranch(repo, module):
     path = commons.getTomlFilePath()
-    
+
     try:
         branch = repo.get_branch(branch="dependabot/" + module)
         file = repo.get_contents(path, ref="dependabot/" + module)
