@@ -1,6 +1,6 @@
-# ballerina-dependabot 
+# ballerina-dependabot-action
 
-This GitHub action will provide a functionality similar to GitHub Dependabot for Ballerina projects. The action will check the Ballerina Central, for latest versions of the modules found in the Ballerina.toml file and raise Pull Requests for each module with version updates.
+This GitHub action will provide a functionality similar to GitHub [Dependabot](https://github.com/dependabot/) for Ballerina projects. The action will check the [Ballerina Central](https://central.ballerina.io/), for latest versions of the modules found in the Ballerina.toml file and raise Pull Requests for each module with version updates.
 
 # Usage
 See this [repo](https://github.com/TharindaDilshan/ballerina-dependabot-extended) for a real world example.
@@ -21,7 +21,7 @@ If Ballerina.toml resides in the `ballerina_project` directory, `file_path: ball
 ## Example
 
 ```
-- uses: TharindaDilshan/ballerina-dependabot-extended@main
+- uses: TharindaDilshan/ballerina-dependabot-action@main
   with:
      git_email: ${{ secrets.GITHUB_EMAIL }}
      git_username: ${{ secrets.GITHUB_USERNAME}}
@@ -30,10 +30,11 @@ If Ballerina.toml resides in the `ballerina_project` directory, `file_path: ball
 
 ## Full Example
 
+The action is scheduled to run every Sunday at 12:00 a.m. to check for dependency updates.
+
 ```
 name: Ballerina Dependabot
 on: 
-  workflow_dispatch:
   schedule:
         - cron: '30 18 * * *'
 jobs:
@@ -44,7 +45,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Dependabot Action
-        uses: TharindaDilshan/ballerina-dependabot-extended@main
+        uses: TharindaDilshan/ballerina-dependabot-action@main
         with:
           git_email: ${{ secrets.GITHUB_EMAIL }}
           git_username: ${{ secrets.GITHUB_USERNAME}}
