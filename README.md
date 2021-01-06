@@ -30,13 +30,13 @@ If Ballerina.toml resides in the `ballerina_project` directory, `file_path: ball
 
 ## Full Example
 
-The action is scheduled to run every Sunday at 12:00 a.m. to check for dependency updates.
+The action is scheduled to run every Sunday at 12:00 a.m.(IST) to check for dependency updates.
 
 ```
 name: Ballerina Dependabot
 on: 
   schedule:
-        - cron: '30 18 * * *'
+        - cron: '30 18 * * 7'
 jobs:
   resolve_dependencies:
     runs-on: ubuntu-latest
