@@ -3,7 +3,7 @@
 This GitHub action will provide a functionality similar to GitHub Dependabot for Ballerina projects. The action will check the Ballerina Central, for latest versions of the modules found in the Ballerina.toml file and raise Pull Requests for each module with version updates.
 
 # Usage
-See the [repo](https://github.com/TharindaDilshan/ballerina-dependabot-extended) for a real world example.
+See this [repo](https://github.com/TharindaDilshan/ballerina-dependabot-extended) for a real world example.
 
 ## Inputs
 
@@ -14,14 +14,40 @@ See the [repo](https://github.com/TharindaDilshan/ballerina-dependabot-extended)
 | token        | Yes      | GitHub Access Token         |
 | file_path    | No       | Path to Ballerina.toml file |
 
+**Note** - File path is required if the Ballerina.toml file does not resides on the repository root.
+
+If Ballerina.toml resides in the `ballerina_project` directory, `file_path: ballerina_project/`. The trailing `/` is required if the file_path is specified explicitly.
+
 ## Example
 
 ```
- - uses: TharindaDilshan/ballerina-dependabot-extended@main
-   with:
-      git_email: ${{ secrets.BALLERINA_BOT_EMAIL }}
-      git_username: ${{ secrets.BALLERINA_BOT_USERNAME}}
-      token: ${{ secrets.BALLERINA_BOT_TOKEN }}
+- uses: TharindaDilshan/ballerina-dependabot-extended@main
+  with:
+     git_email: ${{ secrets.GITHUB_EMAIL }}
+     git_username: ${{ secrets.GITHUB_USERNAME}}
+     token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Full Example
+
+```
+name: Ballerina Dependabot
+on: 
+  workflow_dispatch:
+  schedule:
+        - cron: '30 18 * * *'
+jobs:
+  resolve_dependencies:
+    runs-on: ubuntu-latest
+    name: Dependabot
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Dependabot Action
+        uses: TharindaDilshan/ballerina-dependabot-extended@main
+        with:
+          git_email: ${{ secrets.GITHUB_EMAIL }}
+          git_username: ${{ secrets.GITHUB_USERNAME}}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          file_path: project_1/
+```
