@@ -11,8 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Dependabot Action
-        uses: ./ # Uses an action in the root directory
+        uses: ./
         with:
           git_email: ${{ secrets.BALLERINA_BOT_EMAIL }}
           git_username: ${{ secrets.BALLERINA_BOT_USERNAME}}
           token: ${{ secrets.BALLERINA_BOT_TOKEN }}
+          file_path: test/
