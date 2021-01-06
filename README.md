@@ -7,12 +7,12 @@ See the [repo](https://github.com/TharindaDilshan/ballerina-dependabot-extended)
 
 ## Inputs
 
-| Input        | Required | Description |
-|--------------|----------|-------------|
-| git_email    | Yes      |             |
-| git_username | Yes      |             |
-| token        | Yes      |             |
-| file_path    | No       |             |
+| Input        | Required | Description                 |
+|--------------|----------|-----------------------------|
+| git_email    | Yes      | GitHub email address        |
+| git_username | Yes      | GitHub username             |
+| token        | Yes      | GitHub Access Token         |
+| file_path    | No       | Path to Ballerina.toml file |
 
 ## Example
 
