@@ -1,4 +1,4 @@
-# ballerina-dependabot-action
+# ballerina-dependabot-action ![Test](https://github.com/TharindaDilshan/ballerina-dependabot-action/workflows/Test/badge.svg)
 
 This GitHub action will provide a functionality similar to GitHub [Dependabot](https://github.com/dependabot/) for Ballerina projects. The action will check the [Ballerina Central](https://central.ballerina.io/), for latest versions of the modules found in the Ballerina.toml file and raise Pull Requests for each module with version updates.
 
