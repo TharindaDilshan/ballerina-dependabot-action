@@ -7,7 +7,6 @@ import commons
 # Fetch toml file from a given repository
 def fetchTomlFileFromMainBranch(repo):
     path = commons.getTomlFilePath()
-    print(path)
     try:
         try:
             file = repo.get_contents(path, ref="main")

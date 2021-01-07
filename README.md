@@ -14,7 +14,7 @@ See this [repo](https://github.com/TharindaDilshan/ballerina-dependabot-extended
 | token        | Yes      | GitHub Access Token         |
 | file_path    | No       | Path to Ballerina.toml file |
 
-**Note** - File path is required if the Ballerina.toml file does not resides on the repository root.
+**Note** - File path is required if the Ballerina.toml file does not resides in the repository root.
 
 If Ballerina.toml resides in the `ballerina_project` directory, `file_path: ballerina_project/`. The trailing `/` is required if the file_path is specified explicitly.
 
@@ -52,3 +52,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           file_path: project_1/
 ```
+
+## References
+
+[Creating encrypted secrets for a repository](https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
+
+[GitHub workflow scheduled events](https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#scheduled-events)
