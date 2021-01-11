@@ -1,5 +1,9 @@
 FROM python:latest
 
+# Add action labels
+LABEL "com.github.actions.icon" = "bold"
+LABEL "com.github.actions.color" = "gray-dark"
+
 # Add files to the image
 ADD lib/ballerina_dependabot/entrypoint.py entrypoint.py
 ADD lib/ballerina_dependabot/commons.py commons.py
