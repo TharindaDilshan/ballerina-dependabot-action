@@ -1,6 +1,6 @@
-name: Ballerina Dependabot
-author: Tharinda Dilshan
-description: Version resolution for Ballerina
+name: ballerina-dependabot
+author: TharindaDilshan
+description: Dependency updater for Ballerina 
 
 inputs: 
   git_email:
@@ -19,3 +19,7 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  
+branding:
+  icon: 'bold'
+  color: 'gray-dark'
